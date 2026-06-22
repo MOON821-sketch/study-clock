@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Study Clock</title>
+
+<style>
+body{
+  margin:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  background:transparent;
+  font-family:Georgia, serif;
+}
+
+.clock-card{
+  width:420px;
+  height:200px;
+  background:#F6F5F0;
+  border:1px solid #E5E3DA;
+  border-radius:20px;
+  padding:25px;
+  box-sizing:border-box;
+  position:relative;
+}
+
+.clock-icon{
+  font-size:18px;
+  color:#5D7058;
+}
+
+.time{
+  font-size:78px;
+  line-height:1;
+  color:#5D7058;
+  margin-top:8px;
+}
+
+.time span{
+  font-size:28px;
+  margin-left:8px;
+}
+
+.date{
+  margin-top:10px;
+  font-size:20px;
+  color:#777777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="clock-card">
+  <div class="clock-icon">🕒</div>
+  <div id="time" class="time"></div>
+  <div id="date" class="date"></div>
+</div>
+
+<script>
+function updateClock() {
+
+  const now = new Date();
+
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+
+  const ampm = hours >= 12 ? "PM" : "AM";
+
+  hours = hours % 12;
+  if(hours === 0) hours = 12;
+
+  minutes = String(minutes).padStart(2,"0");
+
+  document.getElementById("time").innerHTML =
+  `${hours}:${minutes}<span>${ampm}</span>`;
+
+  const options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  };
+
+  document.getElementById("date").textContent =
+  now.toLocaleDateString("en-GB", options);
+}
+
+updateClock();
+setInterval(updateClock,1000);
+</script>
+
+</body>
+</html>
